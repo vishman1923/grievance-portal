@@ -1,0 +1,87 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* MOBILE STYLES */
+@media (max-width: 768px) {
+
+  /* Landing Page */
+  h1 { font-size: 2rem !important; }
+  
+  /* Stats Row - 2 columns on mobile */
+  div[style*="gridTemplateColumns: repeat(4"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Charts - 1 column on mobile */
+  div[style*="gridTemplateColumns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Features Grid - 1 column on mobile */
+  div[style*="repeat(3,1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Steps Row - vertical on mobile */
+  div[style*="stepsRow"] {
+    flex-direction: column !important;
+  }
+
+  /* Stats section - wrap on mobile */
+  div[style*="gap: 40px"] {
+    gap: 20px !important;
+    flex-wrap: wrap !important;
+  }
+
+  /* Table - scrollable on mobile */
+  table {
+    min-width: 600px;
+  }
+
+  /* Navbar - smaller padding */
+  nav {
+    padding: 12px 16px !important;
+  }
+
+  /* Hero buttons - stack on mobile */
+  div[style*="heroBtns"] {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  /* Form card - full width */
+  div[style*="maxWidth: 480px"] {
+    margin: 20px !important;
+    padding: 20px !important;
+  }
+
+  /* Login card - full width */
+  div[style*="maxWidth: 420px"] {
+    margin: 16px !important;
+    padding: 24px 20px !important;
+  }
+
+  /* Admin wrap - less padding */
+  div[style*="padding: 30px"] {
+    padding: 16px !important;
+  }
+
+  /* Hero title */
+  div[style*="fontSize: 3.5rem"] {
+    font-size: 2rem !important;
+  }
+}
+
+/* Scrollable table wrapper for mobile */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
