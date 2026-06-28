@@ -15,9 +15,10 @@ function App() {
   const [submitted, setSubmitted] = useState(false);
   const [grievances, setGrievances] = useState([]);
   const [selectedGrievance, setSelectedGrievance] = useState(null);
-
   const handleStudentLogin = async () => {
-    const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com", {
+  setLoginError("");
+  try {
+    const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com/api/student/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: loginForm.email, password: loginForm.password })
@@ -33,7 +34,10 @@ function App() {
     } else {
       setLoginError(data.message);
     }
-  };
+  } catch (error) {
+    setLoginError("Server is waking up... Please wait 30 seconds and try again!");
+  }
+};
 
   const handleAdminLogin = async () => {
     const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com/api/admin/login", {
@@ -61,6 +65,7 @@ function App() {
     const data = await res.json();
     if (data.success) {
       alert("Registration successful! Please login.");
+      setLoginError("");
       setShowRegister(false);
     } else {
       setLoginError(data.message);
