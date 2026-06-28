@@ -17,7 +17,7 @@ function App() {
   const [selectedGrievance, setSelectedGrievance] = useState(null);
 
   const handleStudentLogin = async () => {
-    const res = await fetch("https://grievance-portal-33a3.onrender.com", {
+    const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: loginForm.email, password: loginForm.password })
@@ -36,7 +36,7 @@ function App() {
   };
 
   const handleAdminLogin = async () => {
-    const res = await fetch("https://grievance-portal-33a3.onrender.com/api/admin/login", {
+    const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com/api/admin/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username: loginForm.username, password: loginForm.password })
@@ -53,7 +53,7 @@ function App() {
   };
 
   const handleRegister = async () => {
-    const res = await fetch("https://grievance-portal-33a3.onrender.com/api/student/register", {
+    const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com/api/student/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(registerForm)
@@ -77,7 +77,7 @@ function App() {
   };
 
   const handleSubmit = async () => {
-    const res = await fetch("https://grievance-portal-33a3.onrender.com/api/grievances", {
+    const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com/api/grievances", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form)
@@ -86,20 +86,20 @@ function App() {
   };
 
   const fetchGrievances = async () => {
-    const res = await fetch("https://grievance-portal-33a3.onrender.com/api/grievances");
+    const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com/api/grievances");
     const data = await res.json();
     setGrievances(data);
     setPage("admin");
   };
   const fetchMyGrievances = async () => {
-  const res = await fetch("https://grievance-portal-33a3.onrender.com/api/grievances");
+  const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com/api/grievances");
   const data = await res.json();
   const myGrievances = data.filter(g => g.roll_number === currentStudent.roll_number);
   setGrievances(myGrievances);
   setPage("mygrievances");
 };
   const resolveGrievance = async (id) => {
-    await fetch(`https://grievance-portal-33a3.onrender.com/api/grievances/${id}/resolve`, { method: "PUT" });
+    await fetch(`https://grievance-portal-backend-gaqy.onrender.com/api/grievances/${id}/resolve`, { method: "PUT" });
     fetchGrievances();
     setSelectedGrievance(null);
   };
