@@ -82,13 +82,17 @@ function App() {
   };
 
   const handleSubmit = async () => {
+  try {
     const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com/api/grievances", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form)
     });
     if (res.ok) setSubmitted(true);
-  };
+  } catch (error) {
+    alert("Server is waking up! Please wait 30 seconds and try again!");
+  }
+};
 
   const fetchGrievances = async () => {
     const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com/api/grievances");
