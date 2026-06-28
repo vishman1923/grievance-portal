@@ -119,8 +119,8 @@ def submit_grievance():
         VALUES (?, ?, ?, ?, ?, ?, ?)''',
         (data['student_name'], data['roll_number'], data['department'],
          data['grievance_type'], data['description'], priority,
-         datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=5, minutes=30))).strftime("%Y-%m-%d %H:%M:%S")
-    conn.close()
+         datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    conn.close()datetime.
     return jsonify({'message': 'Grievance submitted!', 'priority': priority})
 
 @app.route('/api/grievances', methods=['GET'])
