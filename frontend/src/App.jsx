@@ -13,6 +13,7 @@ function App() {
   const [loginError, setLoginError] = useState("");
   const [form, setForm] = useState({ student_name: "", roll_number: "", department: "", grievance_type: "", description: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [grievances, setGrievances] = useState([]);
   const [selectedGrievance, setSelectedGrievance] = useState(null);
   const handleStudentLogin = async () => {
@@ -82,14 +83,19 @@ function App() {
   };
 
   const handleSubmit = async () => {
+  setLoading(true);
   try {
     const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com/api/grievances", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form)
     });
-    if (res.ok) setSubmitted(true);
+    if (res.ok) {
+      setSubmitted(true);
+      setLoading(false);
+    }
   } catch (error) {
+    setLoading(false);
     alert("Server is waking up! Please wait 30 seconds and try again!");
   }
 };
@@ -421,7 +427,9 @@ function App() {
                 </select>
                 <label style={s.label}>Description</label>
                 <textarea style={{ ...s.inp, height: "100px", resize: "none" }} placeholder="Describe your grievance..." onChange={e => setForm({ ...form, description: e.target.value })} />
-                <button style={s.goldBtn} onClick={handleSubmit}>Submit Grievance</button>
+                <button style={s.goldBtn} onClick={handleSubmit}>
+  {loading ? "Please wait... Server waking up! ⏳" : "Submit Grievance"}
+</button>
               </>
             )}
           </div>
