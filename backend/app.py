@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import sqlite3
 import datetime
+import pytz
 import json
 
 app = Flask(__name__)
@@ -118,7 +119,7 @@ def submit_grievance():
         VALUES (?, ?, ?, ?, ?, ?, ?)''',
         (data['student_name'], data['roll_number'], data['department'],
          data['grievance_type'], data['description'], priority,
-         datetime.datetime.now(datetime.timezone.utc).astimezone(datetime.timezone(datetime.timedelta(hours=5, minutes=30))).strftime("%Y-%m-%d %H:%M:%S")
+         datetime.datetime.now(pytz.timezone('Asia/Kolkata')).strftime("%Y-%m-%d %H:%M:%S")
     conn.close()
     return jsonify({'message': 'Grievance submitted!', 'priority': priority})
 
