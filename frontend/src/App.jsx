@@ -388,7 +388,7 @@ function App() {
                     {g.status === "Pending" ? "⏳ Pending" : "✅ Resolved"}
                   </span>
                 </td>
-                <td style={s.td}>{g.date_submitted}</td>
+                <td style={s.td}>{new Date(g.date_submitted).toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'})}</td>
               </tr>
             ))}
           </tbody>
@@ -480,7 +480,7 @@ function App() {
                     <td style={s.td}>{g.grievance_type}</td>
                     <td style={{ ...s.td, color: g.priority === "Urgent" ? "#ff4444" : g.priority === "Moderate" ? GOLD : "#4caf50", fontWeight: "bold" }}>{g.priority}</td>
                     <td style={{ ...s.td, color: g.status === "Pending" ? GOLD : "#4caf50" }}>{g.status}</td>
-                    <td style={s.td}>{g.date_submitted}</td>
+                    <td style={s.td}>{new Date(g.date_submitted).toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'})}</td>
                     <td style={s.td}>
                       <button onClick={() => setSelectedGrievance(g)} style={s.viewBtn}>View</button>
                       {g.status === "Pending" && <button onClick={() => resolveGrievance(g.id)} style={s.resolveBtn}>Resolve</button>}
