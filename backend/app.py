@@ -3,6 +3,24 @@ from flask_cors import CORS
 import sqlite3
 import datetime
 import os
+from twilio.rest import Client
+
+# Twilio credentials
+TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID', '')
+TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN', '')
+TWILIO_PHONE = os.environ.get('TWILIO_PHONE', '+12316608326')
+
+def send_sms(to_phone, message):
+    try:
+        client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+        client.messages.create(
+            body=message,
+            from_=TWILIO_PHONE,
+            to=to_phone
+        )
+        print(f"SMS sent to {to_phone}")
+    except Exception as e:
+        print(f"SMS error: {e}")
 
 app = Flask(__name__)
 CORS(app)
@@ -96,11 +114,23 @@ def submit_grievance():
 def resolve_grievance(id):
     conn = sqlite3.connect('grievances.db')
     c = conn.cursor()
-    c.execute('UPDATE grievances SET status = ? WHERE id = ?', ('Resolved', id))
+    c.execute('UPDATE grievances SET status = ? WHERE id = ?', ('resolved', id))
     conn.commit()
+    
+    # Get student details to send SMS
+    c.execute('SELECT student_name, grievance_type FROM grievances WHERE id = ?', (id,))
+    grievance = c.fetchone()
     conn.close()
+    
+    # Send SMS notification
+    if grievance:
+        student_name = grievance[0]
+        grievance_type = grievance[1]
+        # Add student phone number here
+        send_sms('+919486715385', 
+            f'Dear {student_name}, your grievance about "{grievance_type}" has been resolved by admin. - Smart Grievance Portal')
+    
     return jsonify({'message': 'Grievance resolved!'})
-
 @app.route('/api/student/register', methods=['POST'])
 def student_register():
     data = request.json
