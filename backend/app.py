@@ -58,18 +58,18 @@ def init_db():
         date_submitted TEXT NOT NULL
     )''')
     c.execute('''CREATE TABLE IF NOT EXISTS students (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        roll_number TEXT NOT NULL UNIQUE,
-        department TEXT NOT NULL,
-        email TEXT NOT NULL UNIQUE,
-        password TEXT NOT NULL,
-        phone TEXT DEFAULT " "
-        try:
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    roll_number TEXT NOT NULL UNIQUE,
+    department TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    phone TEXT DEFAULT ""
+)''')
+try:
     c.execute('ALTER TABLE students ADD COLUMN phone TEXT DEFAULT ""')
 except:
     pass
-    )''')
     c.execute('''CREATE TABLE IF NOT EXISTS admins (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL UNIQUE,
