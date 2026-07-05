@@ -64,7 +64,7 @@ def init_db():
         department TEXT NOT NULL,
         email TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL,
-        phone TEXT DEFAULT ''
+        phone TEXT DEFAULT " "
         try:
     c.execute('ALTER TABLE students ADD COLUMN phone TEXT DEFAULT ""')
 except:
