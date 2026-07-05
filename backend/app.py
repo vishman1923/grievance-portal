@@ -63,7 +63,12 @@ def init_db():
         roll_number TEXT NOT NULL UNIQUE,
         department TEXT NOT NULL,
         email TEXT NOT NULL UNIQUE,
-        password TEXT NOT NULL
+        password TEXT NOT NULL,
+        phone TEXT DEFAULT ''
+        try:
+    c.execute('ALTER TABLE students ADD COLUMN phone TEXT DEFAULT ""')
+except:
+    pass
     )''')
     c.execute('''CREATE TABLE IF NOT EXISTS admins (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -118,7 +123,10 @@ def resolve_grievance(id):
     conn.commit()
     
     # Get student details to send SMS
-    c.execute('SELECT student_name, grievance_type FROM grievances WHERE id = ?', (id,))
+    c.execute('''SELECT g.student_name, g.grievance_type, s.phone 
+             FROM grievances g 
+             LEFT JOIN students s ON g.student_name = s.name 
+             WHERE g.id = ?''', (id,))
     grievance = c.fetchone()
     conn.close()
     
@@ -127,7 +135,7 @@ def resolve_grievance(id):
         student_name = grievance[0]
         grievance_type = grievance[1]
         # Add student phone number here
-        send_sms('+919486715385', 
+        send_sms(grievance[2] if grievance[2] else '+919486715385',
             f'Dear {student_name}, your grievance about "{grievance_type}" has been resolved by admin. - Smart Grievance Portal')
     
     return jsonify({'message': 'Grievance resolved!'})
@@ -137,9 +145,8 @@ def student_register():
     try:
         conn = sqlite3.connect('grievances.db')
         c = conn.cursor()
-        c.execute('INSERT INTO students (name, roll_number, department, email, password) VALUES (?, ?, ?, ?, ?)',
-            (data['name'], data['roll_number'], data['department'], data['email'], data['password']))
-        conn.commit()
+        c.execute('INSERT INTO students (name, roll_number, department, email, password, phone) VALUES (?, ?, ?, ?, ?, ?)',
+    (data['name'], data['roll_number'], data['department'], data['email'], data['password'], data.get('phone', '')))
         conn.close()
         return jsonify({'success': True, 'message': 'Registration successful!'})
     except:

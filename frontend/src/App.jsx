@@ -316,6 +316,8 @@ function App() {
               <input style={s.inp} type="email" placeholder="Enter your email" onChange={e => setRegisterForm({ ...registerForm, email: e.target.value })} />
               <label style={s.label}>Password</label>
               <input style={s.inp} type="password" placeholder="Create password" onChange={e => setRegisterForm({ ...registerForm, password: e.target.value })} />
+              <label style={s.label}>Phone Number</label>
+<input style={s.inp} type="tel" placeholder="Enter your phone number (e.g. 9876543210)" onChange={e => setRegisterForm({...registerForm, phone: e.target.value})} />
               <button style={s.goldBtn} onClick={handleRegister}>Register</button>
               <p style={s.subText}>Already have account?
                 <span style={s.goldLink} onClick={() => setShowRegister(false)}> Login here</span>
