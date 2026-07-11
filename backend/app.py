@@ -67,9 +67,9 @@ def init_db():
     phone TEXT DEFAULT ""
 )''')
     try:
-    c.execute('ALTER TABLE students ADD COLUMN phone TEXT DEFAULT ""')
+        c.execute('ALTER TABLE students ADD COLUMN phone TEXT DEFAULT ""')
     except:
-    pass
+        pass
     c.execute('''CREATE TABLE IF NOT EXISTS admins (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL UNIQUE,
