@@ -66,9 +66,9 @@ def init_db():
     password TEXT NOT NULL,
     phone TEXT DEFAULT ""
 )''')
- try:
+    try:
     c.execute('ALTER TABLE students ADD COLUMN phone TEXT DEFAULT ""')
- except:
+    except:
     pass
     c.execute('''CREATE TABLE IF NOT EXISTS admins (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
