@@ -147,6 +147,7 @@ def student_register():
         c = conn.cursor()
         c.execute('INSERT INTO students (name, roll_number, department, email, password, phone) VALUES (?, ?, ?, ?, ?, ?)',
     (data['name'], data['roll_number'], data['department'], data['email'], data['password'], data.get('phone', '')))
+        conn.commit()
         conn.close()
         return jsonify({'success': True, 'message': 'Registration successful!'})
     except:
