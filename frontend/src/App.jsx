@@ -41,7 +41,7 @@ function App() {
 };
 
   const handleAdminLogin = async () => {
-    const res = await fetch("https://grievance-portal-backend-gaqy.https://grievance-portal-production-aff9.up.railway.app/api/admin/login", {
+    const res = await fetch("https://grievance-portal-backend-gaqy.https://grievance-portal-production-aff9.up.railway.app/api/admin/loginhttps://grievance-portal-production-aff9.up.railway.app", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username: loginForm.username, password: loginForm.password })
