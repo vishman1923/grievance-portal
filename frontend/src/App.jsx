@@ -19,7 +19,7 @@ function App() {
   const handleStudentLogin = async () => {
   setLoginError("");
   try {
-    const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com/api/student/login", {
+    const res = await fetch("https://grievance-portal-backend-gaqy.https://grievance-portal-production-aff9.up.railway.app/api/student/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: loginForm.email, password: loginForm.password })
@@ -41,7 +41,7 @@ function App() {
 };
 
   const handleAdminLogin = async () => {
-    const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com/api/admin/login", {
+    const res = await fetch("https://grievance-portal-backend-gaqy.https://grievance-portal-production-aff9.up.railway.app/api/admin/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username: loginForm.username, password: loginForm.password })
@@ -58,7 +58,7 @@ function App() {
   };
 
   const handleRegister = async () => {
-    const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com/api/student/register", {
+    const res = await fetch("https://grievance-portal-backend-gaqy.https://grievance-portal-production-aff9.up.railway.app/api/student/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(registerForm)
@@ -85,7 +85,7 @@ function App() {
   const handleSubmit = async () => {
   setLoading(true);
   try {
-    const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com/api/grievances", {
+    const res = await fetch("https://grievance-portal-backend-gaqy.https://grievance-portal-production-aff9.up.railway.app/api/grievances", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form)
@@ -101,20 +101,20 @@ function App() {
 };
 
   const fetchGrievances = async () => {
-    const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com/api/grievances");
+    const res = await fetch("https://grievance-portal-backend-gaqy.https://grievance-portal-production-aff9.up.railway.app/api/grievances");
     const data = await res.json();
     setGrievances(data);
     setPage("admin");
   };
   const fetchMyGrievances = async () => {
-  const res = await fetch("https://grievance-portal-backend-gaqy.onrender.com/api/grievances");
+  const res = await fetch("https://grievance-portal-backend-gaqy.https://grievance-portal-production-aff9.up.railway.app/api/grievances");
   const data = await res.json();
   const myGrievances = data.filter(g => g.roll_number === currentStudent.roll_number);
   setGrievances(myGrievances);
   setPage("mygrievances");
 };
   const resolveGrievance = async (id) => {
-    await fetch(`https://grievance-portal-backend-gaqy.onrender.com/api/grievances/${id}/resolve`, { method: "PUT" });
+    await fetch(`https://grievance-portal-backend-gaqy.https://grievance-portal-production-aff9.up.railway.app/api/grievances/${id}/resolve`, { method: "PUT" });
     fetchGrievances();
     setSelectedGrievance(null);
   };
