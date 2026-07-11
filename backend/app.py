@@ -44,7 +44,7 @@ def categorize_grievance(description):
     return "Normal"
 
 def init_db():
-    conn = sqlite3.connect('grievances.db')
+    conn = sqlite3.connect('/app/data/grievances.db')
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS grievances (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -84,7 +84,7 @@ def init_db():
 
 @app.route('/api/grievances', methods=['GET'])
 def get_grievances():
-    conn = sqlite3.connect('grievances.db')
+    conn = sqlite3.connect('/app/data/grievances.db')
     c = conn.cursor()
     c.execute('SELECT * FROM grievances')
     rows = c.fetchall()
@@ -104,7 +104,7 @@ def get_grievances():
 def submit_grievance():
     data = request.json
     priority = categorize_grievance(data['description'])
-    conn = sqlite3.connect('grievances.db')
+    conn = sqlite3.connect('/app/data/grievances.db')
     c = conn.cursor()
     c.execute('''INSERT INTO grievances
         (student_name, roll_number, department, grievance_type, description, priority, date_submitted)
@@ -117,7 +117,7 @@ def submit_grievance():
 
 @app.route('/api/grievances/<int:id>/resolve', methods=['PUT'])
 def resolve_grievance(id):
-    conn = sqlite3.connect('grievances.db')
+    conn = sqlite3.connect('/app/data/grievances.db')
     c = conn.cursor()
     c.execute('UPDATE grievances SET status = ? WHERE id = ?', ('resolved', id))
     conn.commit()
@@ -143,7 +143,7 @@ def resolve_grievance(id):
 def student_register():
     data = request.json
     try:
-        conn = sqlite3.connect('grievances.db')
+        conn = sqlite3.connect('/app/data/grievances.db')
         c = conn.cursor()
         c.execute('INSERT INTO students (name, roll_number, department, email, password, phone) VALUES (?, ?, ?, ?, ?, ?)',
     (data['name'], data['roll_number'], data['department'], data['email'], data['password'], data.get('phone', '')))
@@ -155,7 +155,7 @@ def student_register():
 @app.route('/api/student/login', methods=['POST'])
 def student_login():
     data = request.json
-    conn = sqlite3.connect('grievances.db')
+    conn = sqlite3.connect('/app/data/grievances.db')
     c = conn.cursor()
     c.execute('SELECT * FROM students WHERE email = ? AND password = ?',
         (data['email'], data['password']))
@@ -176,7 +176,7 @@ def student_login():
 @app.route('/api/admin/login', methods=['POST'])
 def admin_login():
     data = request.json
-    conn = sqlite3.connect('grievances.db')
+    conn = sqlite3.connect('/app/data/grievances.db')
     c = conn.cursor()
     c.execute('SELECT * FROM admins WHERE username = ? AND password = ?',
         (data['username'], data['password']))
